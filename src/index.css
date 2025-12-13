@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* 老眼の方にも見やすい高コントラスト配色 */
+    --background: 0 0% 100%; /* 純白背景 */
+    --foreground: 220 25% 8%; /* より濃い黒系テキスト */
+
+    --card: 0 0% 100%; /* 純白カード */
+    --card-foreground: 220 25% 8%; /* 濃いテキスト */
+
+    --popover: 0 0% 100%; /* 純白ポップオーバー */
+    --popover-foreground: 220 25% 8%; /* 濃いテキスト */
+
+    --primary: 217 91% 50%; /* 濃いめの青（視認性向上） */
+    --primary-foreground: 0 0% 100%; /* 白文字 */
+
+    --secondary: 210 40% 94%; /* 薄いグレー背景 */
+    --secondary-foreground: 220 25% 8%; /* 濃いテキスト */
+
+    --muted: 210 20% 95%; /* 薄めのグレー背景 */
+    --muted-foreground: 220 20% 35%; /* しっかり見えるグレー文字 */
+
+    --accent: 142 76% 36%; /* 緑アクセント */
+    --accent-foreground: 0 0% 100%; /* 白文字 */
+
+    --destructive: 0 84% 50%; /* 濃いめの赤 */
+    --destructive-foreground: 0 0% 100%; /* 白文字 */
+
+    --border: 220 15% 85%; /* はっきり見える境界線 */
+    --input: 220 15% 85%; /* はっきり見える入力枠 */
+    --ring: 217 91% 50%; /* フォーカスリング */
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 25% 8%;
+    --sidebar-primary: 217 91% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 94%;
+    --sidebar-accent-foreground: 220 25% 8%;
+    --sidebar-border: 220 15% 85%;
+    --sidebar-ring: 217 91% 50%;
+  }
+
+  .dark {
+    --background: 215 28% 10%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 25% 14%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 25% 14%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 25% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 25% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 25% 18%;
+    --input: 215 25% 18%;
+    --ring: 217 91% 60%;
+    
+    --sidebar-background: 215 25% 14%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 25% 18%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 25% 18%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: 19px; /* 老眼の方でも見やすい基本サイズ */
+    line-height: 1.8; /* 行間を広めに */
+    font-weight: 400;
+  }
+  
+  /* ボタンやラベルのテキストを見やすく */
+  button, label {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  /* 入力フィールドのテキストを見やすく */
+  input, textarea, select {
+    font-size: 18px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 5mm;
+  }
+
+  /* 拡大表示以外は完全に非表示 */
+  body > *:not([role="dialog"]) {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 8pt !important;
+  }
+
+  /* 拡大表示のDrawerのみ表示 */
+  [role="dialog"] {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  [role="dialog"] > * {
+    position: static !important;
+    display: block !important;
+  }
+
+  /* すべてのボタンとインタラクティブ要素を非表示 */
+  button,
+  .print\:hidden,
+  header,
+  [role="alertdialog"],
+  nav,
+  aside {
+    display: none !important;
+  }
+
+  /* Drawer overlay非表示 */
+  [data-vaul-overlay] {
+    display: none !important;
+  }
+
+  /* Drawer headerのボタンやクローズボタンを非表示 */
+  [role="dialog"] button {
+    display: none !important;
+  }
+
+  /* テーブルスタイル */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto;
+    font-size: 7pt !important;
+    table-layout: fixed !important;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  /* 罫線を確実に表示 */
+  th, td {
+    border: 1px solid #333 !important;
+    padding: 2px 3px !important;
+    color: black !important;
+    font-size: 7pt !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.3 !important;
+  }
+
+  /* 土日の背景色を薄いグレーで保持 */
+  th.bg-gray-200,
+  td.bg-gray-100,
+  th.print\:bg-gray-200,
+  td.print\:bg-gray-200 {
+    background: #d1d5db !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  th {
+    background: #f3f4f6 !important;
+    font-weight: bold !important;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  /* 影とエフェクトを削除 */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* スクロールコンテナを表示 */
+  [class*="overflow"] {
+    overflow: visible !important;
+  }
+
+  /* 曜日の色を保持 */
+  .text-red-500,
+  .text-red-600 {
+    color: #dc2626 !important;
+  }
+
+  .text-blue-500,
+  .text-blue-600 {
+    color: #2563eb !important;
+  }
+
+  /* テキストエリアをテキストのように表示 */
+  textarea {
+    border: 1px solid #000 !important;
+    background: white !important;
+    color: black !important;
+    padding: 2px !important;
+    font-size: 7pt !important;
+    min-height: auto !important;
+  }
+
+  /* タイトルスタイル */
+  h1, h2, h3 {
+    color: black !important;
+    page-break-after: avoid;
+    font-size: 12pt !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* カードのスタイルを削除 */
+  .card, [class*="card"] {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  /* Drawer内のコンテンツのみ表示 */
+  [role="dialog"] [class*="p-6"]:last-child {
+    display: none !important;
+  }
+
+  /* min-widthを無視してフィット */
+  [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+}

@@ -1,0 +1,9 @@
+# Query: シフト管理
+# ContextLines: 1
+
+1 件の結果 - 1 ファイル
+
+src/i18n/locales/ja.json:
+  1  {
+  2:   "appTitle": "いちご　シフト",
+  3    "login": "ログイン",
